@@ -1,24 +1,20 @@
+
+
 from itertools import permutations
-
-w = [.25, .25, .3, .1, .1]
-
-k = len(w)
+import numpy as np
 
 
-for i in perm:
-    sum = 0
-    for j in range(k):
-        sum = sum+i[j]
-        if sum>0.5 : return()
+def get_cut(q,v):
+    sum = 0.0
+    for j in q:
+        sum=sum+v[j]
+        if sum>0.5: return(j)
 
-def get_cut(p, w):
-    sum=0
-    for j in range(k):
-        sum = sum+w[i[j]]
-        if sum>0.5 : return(j)
-
-perm = permutations(range(k))
-wins = np.zeros(k)
-for p in perm:
-    wins[get_cut(p,w)]+=1
+def Shapley(w):
+    k = len(w)
+    perm = permutations(range(k))
+    wins = np.zeros(k)
+    for p in perm:wins[get_cut(p,w)]+=1
+    wins = wins/np.math.factorial(k)
+    return(wins)
 
